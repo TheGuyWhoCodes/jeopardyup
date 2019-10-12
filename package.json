@@ -1,0 +1,25 @@
+{
+  "name": "jeopardyup",
+  "version": "1.0.0",
+  "description": "Jeopardy questions, all in one place",
+  "main": "main.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheGuyWhoCodes/jeopardyup.git"
+  },
+  "author": "chris ariagno, trojan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheGuyWhoCodes/jeopardyup/issues"
+  },
+  "homepage": "https://github.com/TheGuyWhoCodes/jeopardyup#readme",
+  "devDependencies": {
+    "express": "^4.17.1",
+    "grunt": "^1.0.4",
+    "grunt-bower-concat": "^1.0.0"
+  },
+  "dependencies": {}
+}
