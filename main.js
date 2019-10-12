@@ -12,6 +12,10 @@ app.get("/", function(req, res) {
     res.sendfile("html/search.html")
  });
 
+ app.get("/simulate/", function(req, res) {
+    res.sendfile("html/simulate.html")
+ });
+
  app.get(/^(.+)$/, function(req, res){ 
     res.sendFile( __dirname + "/html/"+req.params[0]); 
 });
@@ -27,4 +31,4 @@ app.get("/", function(req, res) {
     res.sendFile("html/404.html")
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`Big man Jeporady instance is running on ${port}!`))

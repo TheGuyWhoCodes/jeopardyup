@@ -10,7 +10,7 @@
 }
 .sub-text {
     font-size:2em;
-
+    font-family: 'Poppins', sans-serif;
 }
 .hero {
     background-image:
@@ -20,4 +20,7 @@
     background-size: cover;
     background-blend-mode: saturation;
     height:100vh;
+}
+.button-collection {
+    margin-top:.5rem;
 }
