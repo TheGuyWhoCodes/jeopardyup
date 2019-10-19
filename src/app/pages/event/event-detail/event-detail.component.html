@@ -1,0 +1,21 @@
+<div class="card-body">
+    <h2 class="card-title text-center mb-0">Question Details</h2>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <strong>Question:</strong>{{ event.question }}
+    </li>
+    <li class="list-group-item">
+      <strong>Answer:</strong>{{ event.answer }}
+    </li>
+    <li class="list-group-item">
+      <strong>Question Value:</strong>${{ event.value }}
+    </li>
+    <li class="list-group-item">
+      <strong>Category:</strong>{{ event.category.title }}
+    </li>
+    <li class="list-group-item">
+      <strong>Air Date:</strong>
+      <h6 [innerHTML]="formatDate(event.airdate)"></h6>
+    </li>
+  </ul>
