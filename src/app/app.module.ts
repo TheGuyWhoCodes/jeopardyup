@@ -15,6 +15,7 @@ import { FilterSortService } from './core/filter-sort.service';
 import { FormsModule } from '@angular/forms';
 import { EventComponent } from './pages/event/event.component';
 import { EventDetailComponent } from './pages/event/event-detail/event-detail.component';
+import { SimulationComponent } from './pages/simulation/simulation.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { EventDetailComponent } from './pages/event/event-detail/event-detail.co
     HeaderComponent,
     LoadingComponent,
     EventComponent,
-    EventDetailComponent
+    EventDetailComponent,
+    SimulationComponent
   ],
   imports: [
     BrowserModule,

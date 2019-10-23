@@ -12,7 +12,7 @@ import { EventModel } from './../../core/models/event.model';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  pageTitle = 'Jeoprady Search';
+  pageTitle = 'Jeopardy Search';
   eventListSub: Subscription;
   eventList: EventModel[];
   filteredEvents: EventModel[];

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { EventComponent } from './pages/event/event.component';
+import { SimulationComponent } from './pages/simulation/simulation.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'event/:id',
     component: EventComponent,
+  },
+  {
+    path:'simulation',
+    component: SimulationComponent
   }
 ];
 @NgModule({
