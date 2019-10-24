@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { ENV } from './env.config';
 import { EventModel } from './models/event.model';
 import 'rxjs/add/operator/map'
+import { CategoryModel } from './models/category.model';
 
 @Injectable()
 export class ApiService {
@@ -15,17 +16,32 @@ export class ApiService {
   ) { }
 
   // GET list of public, future events
-  getEvents$(): Observable<EventModel[]> {
-    console.log(this.http
-      .get<EventModel[]>(`${ENV.BASE_API}clues`)
-      .pipe(
-        catchError((error) => this._handleError(error))
-      ))
+  getEvents$(question?: string, min?: Date, max?: Date, diff?: String): Observable<EventModel[]> {
+    var url = `${ENV.BASE_API}clues`;
+    if(question != undefined) {
+      url += "?keyword="+question;
+    }
+    if(min != undefined) {
+      url += "?min_date="+min;
+    }
+    if(max != undefined) {
+      url += "?max_date="+min;
+
+    }
+    if(diff != undefined) {
+      url += "?value="+diff;
+    }
+    console.log(url);
     return this.http
-      .get<EventModel[]>(`${ENV.BASE_API}clues`)
+      .get<EventModel[]>(url)
       .pipe(
         catchError((error) => this._handleError(error))
       );
+  }
+
+  getCategories$(){
+    return this.http
+    .get<CategoryModel[]>(`${ENV.BASE_API}categories`)
   }
 
   getEventById$(id: string): Observable<EventModel> {

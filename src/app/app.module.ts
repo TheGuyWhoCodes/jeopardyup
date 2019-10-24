@@ -12,10 +12,16 @@ import { LoadingComponent } from './core/loading.component';
 import { DatePipe } from '@angular/common';
 import { UtilsService } from './core/utils.service';
 import { FilterSortService } from './core/filter-sort.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EventComponent } from './pages/event/event.component';
 import { EventDetailComponent } from './pages/event/event-detail/event-detail.component';
 import { SimulationComponent } from './pages/simulation/simulation.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
+import {MatInputModule} from '@angular/material/';
+import {MatSelectModule} from '@angular/material/select';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -26,13 +32,21 @@ import { SimulationComponent } from './pages/simulation/simulation.component';
     LoadingComponent,
     EventComponent,
     EventDetailComponent,
-    SimulationComponent
+    SimulationComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatRippleModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    MatAutocompleteModule
   ],
   providers: [
     Title,
@@ -40,6 +54,14 @@ import { SimulationComponent } from './pages/simulation/simulation.component';
     DatePipe,
     UtilsService,
     FilterSortService,
+  ],
+  exports: [
+    MatInputModule,
+    MatNativeDateModule,
+    MatRippleModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    MatAutocompleteModule
   ],
   bootstrap: [AppComponent]
 })

@@ -14,24 +14,59 @@
           type="text"
           class="form-control"
           [(ngModel)]="query"
-          (keyup)="searchEvents()" />
+          autocomplete="off" />
         <span class="input-group-append">
           <button
-            class="btn btn-danger"
-            (click)="resetQuery()"
-            [disabled]="!query">&times;</button>
+            class="btn btn-success"
+            (click)="_getEventList(query, diff)">Search</button>
         </span>
       </div>
+      <div class = "date-picker">
+        <mat-form-field>
+          <input matInput [matDatepicker]="maxPicker" placeholder="Minimum Air Date"
+                 (dateInput)="updateMinimum($event)" (dateChange)="updateMinimum($event)">
+          <mat-datepicker-toggle matSuffix [for]="maxPicker"></mat-datepicker-toggle>
+          <mat-datepicker #maxPicker></mat-datepicker>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <input matInput [matDatepicker]="minPicker" placeholder="Maximum Air Date"
+                 (dateInput)="updateMaximum($event)" (dateChange)="updateMaximum($event)">
+          <mat-datepicker-toggle matSuffix [for]="minPicker"></mat-datepicker-toggle>
+          <mat-datepicker #minPicker></mat-datepicker>
+        </mat-form-field>  
+      </div>
+
+      <mat-form-field>
+        <mat-label>Question Difficulty</mat-label>
+        <mat-select [(ngModel)]="diff">
+          <mat-option *ngFor="let question of questions" [value]="question.value">
+            {{question.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="category">
+              {{category.id}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+
       <!-- No search results -->
       <p *ngIf="fs.noSearchResults(filteredEvents, query)" class="alert alert-warning">
-        No events found for <em class="text-danger">{{ query }}</em>, sorry!
+        No questions found for <em class="text-danger">{{ query }}</em>, sorry!
       </p>
       <!-- Events listing -->
       <section class="list-group">
         <a
           *ngFor="let event of fs.orderByDate(filteredEvents, 'airdate')"
           [routerLink]="['/event', event.id]"
-          class="list-group-item list-group-item-action flex-column align-items-start">
+          class="list-group-item list-group-item-action flex-column align-items-start" target="_blank">
           <div class="d-flex w-100 justify-content-between">
             <h6 [innerHTML]="event.question"></h6>
             <small>            <h6 [innerHTML]="formatDate(event.airdate)"></h6>
@@ -47,6 +82,6 @@
   </ng-template>
   <!-- Error loading events -->
   <p *ngIf="error" class="alert alert-danger">
-    <strong>Oops!</strong> There was an error retrieving search data.
+    <strong>Oopsie!</strong> There was an error retrieving search data.
   </p>
 </ng-template>

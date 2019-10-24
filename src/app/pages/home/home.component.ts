@@ -3,8 +3,15 @@ import { Title } from '@angular/platform-browser';
 import { ApiService } from './../../core/api.service';
 import { UtilsService } from './../../core/utils.service';
 import { FilterSortService } from './../../core/filter-sort.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { EventModel } from './../../core/models/event.model';
+import { CategoryModel } from 'src/app/core/models/category.model';
+import { FormControl } from '@angular/forms';
+
+export interface Difficulty {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-home',
@@ -12,12 +19,21 @@ import { EventModel } from './../../core/models/event.model';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  myControl = new FormControl();
+  category: CategoryModel[];
+  filteredOptions: Observable<string[]>;
+
+
+
   pageTitle = 'Jeopardy Search';
   eventListSub: Subscription;
   eventList: EventModel[];
   filteredEvents: EventModel[];
   loading: boolean;
   error: boolean;
+  minDate: Date;
+  maxDate: Date;
+  diff: String;
   query: '';
 
   constructor(
@@ -26,17 +42,36 @@ export class HomeComponent implements OnInit, OnDestroy {
     private api: ApiService,
     public fs: FilterSortService
   ) { }
-
+  questions: Difficulty[] = [
+    {value: '100', viewValue: '$100'},
+    {value: '200', viewValue: '$200'},
+    {value: '300', viewValue: '$300'},
+    {value: '400', viewValue: '$400'},
+    {value: '500', viewValue: '$500'}
+  ];
   ngOnInit() {
     this.title.setTitle(this.pageTitle);
-    this._getEventList();
+    this._getEventList("");
+    this.populateCategories();
+    
+    this.filteredOptions = this.myControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+  }
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.category.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  private _getEventList() {
+   _getEventList(question: string, diff?: string) {
     this.loading = true;
     // Get future, public events
+    console.log(this.minDate)
     this.eventListSub = this.api
-      .getEvents$()
+      .getEvents$(question, this.minDate, this.maxDate, diff)
       .subscribe(
         res => {
           this.eventList = res;
@@ -50,7 +85,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       );
   }
-
   searchEvents() {
     this.filteredEvents = this.fs.search(this.eventList, this.query, 'question', 'mediumDate');
   }
@@ -68,4 +102,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     return new Date(time).toLocaleDateString("en-US");
   }
 
+  updateMinimum(event){
+    this.minDate = (event.value.toISOString())
+  }
+  updateMaximum(event){
+    this.maxDate = (event.value.toISOString())
+  }
+  populateCategories() {
+    this.api.getCategories$()
+    .subscribe((response)=>{
+        this.category = response;
+        console.log(this.category); //<-- not undefined anymore
+    });
+  }
+  updateDiff() {
+
+  }
 }
