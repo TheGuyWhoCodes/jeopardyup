@@ -22,6 +22,7 @@ import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/';
 import {MatSelectModule} from '@angular/material/select';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { GameService } from './services/game.service';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     DatePipe,
     UtilsService,
     FilterSortService,
+    GameService
   ],
   exports: [
     MatInputModule,

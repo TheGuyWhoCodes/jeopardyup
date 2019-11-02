@@ -20,7 +20,7 @@ export interface Difficulty {
 })
 export class HomeComponent implements OnInit, OnDestroy {
   myControl = new FormControl();
-  category: CategoryModel[];
+  categories$ = this.api.getCategories$()
   filteredOptions: Observable<string[]>;
 
 
@@ -47,31 +47,28 @@ export class HomeComponent implements OnInit, OnDestroy {
     {value: '200', viewValue: '$200'},
     {value: '300', viewValue: '$300'},
     {value: '400', viewValue: '$400'},
-    {value: '500', viewValue: '$500'}
+    {value: '500', viewValue: '$500'},
+    {value: '600', viewValue: '$600'},
+    {value: '700', viewValue: '$700'},
+    {value: '800', viewValue: '$800'},
+    {value: '900', viewValue: '$900'},
+    {value: '1000', viewValue: '$1000'},
+    {value: '1110', viewValue: '$1110'},
+
   ];
   ngOnInit() {
     this.title.setTitle(this.pageTitle);
-    this._getEventList("");
-    this.populateCategories();
-    
-    this.filteredOptions = this.myControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
-  }
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.category.filter(option => option.toLowerCase().includes(filterValue));
+    this._getEventList();
+    this.minDate = undefined;
+    this.maxDate = undefined;
   }
 
-   _getEventList(question: string, diff?: string) {
+   _getEventList(question?: string, diff?: string, category?: string) {
     this.loading = true;
     // Get future, public events
-    console.log(this.minDate)
+    console.log(category)
     this.eventListSub = this.api
-      .getEvents$(question, this.minDate, this.maxDate, diff)
+      .getEvents$(question, this.minDate, this.maxDate, diff, category)
       .subscribe(
         res => {
           this.eventList = res;
@@ -107,15 +104,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   updateMaximum(event){
     this.maxDate = (event.value.toISOString())
+    console.log(this.maxDate)
   }
-  populateCategories() {
-    this.api.getCategories$()
-    .subscribe((response)=>{
-        this.category = response;
-        console.log(this.category); //<-- not undefined anymore
-    });
-  }
-  updateDiff() {
-
+  getOptionText(option) {
+    return option.title;
   }
 }

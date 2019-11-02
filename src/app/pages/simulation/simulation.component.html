@@ -1,3 +1,33 @@
-<p>
-  simulation works!
-</p>
+<div class="search-footer">
+    <span class="btn btn-large btn-info update" (click)="updateShow()">Update Show</span>
+  </div>
+
+<div class="board" *ngIf="!currentQuestion">
+    <ul class="categories" *ngIf="board">
+      <li *ngFor="let category of board">
+        <span class="category-name" [innerHTML]="category.title">
+        
+        </span>
+        <ul class="category">
+          <li *ngFor="let question of category.clues; let i=index" (click)="setCurrentQuestion(question)">
+            <div *ngIf="i<5">
+              <span class="question-value" [innerHTML]="question.value">
+                
+              </span>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="question-display" *ngIf="currentQuestion">
+   <span class="question" [innerHTML]="currentQuestion.question">
+
+   </span><br/>
+   <span class="answer">
+
+   </span> <br/>
+   <span class="btn btn-large btn-info" (click)="clearCurrentQuestion()"> 
+     &lt; Back
+    </span>
+  </div>

@@ -18,24 +18,22 @@
         <span class="input-group-append">
           <button
             class="btn btn-success"
-            (click)="_getEventList(query, diff)">Search</button>
+            (click)="_getEventList(query, diff, category)">Search</button>
         </span>
       </div>
-      <div class = "date-picker">
-        <mat-form-field>
+        <mat-form-field class = "date-picker">
           <input matInput [matDatepicker]="maxPicker" placeholder="Minimum Air Date"
                  (dateInput)="updateMinimum($event)" (dateChange)="updateMinimum($event)">
           <mat-datepicker-toggle matSuffix [for]="maxPicker"></mat-datepicker-toggle>
           <mat-datepicker #maxPicker></mat-datepicker>
         </mat-form-field>
   
-        <mat-form-field>
+        <mat-form-field class = "date-picker">
           <input matInput [matDatepicker]="minPicker" placeholder="Maximum Air Date"
                  (dateInput)="updateMaximum($event)" (dateChange)="updateMaximum($event)">
           <mat-datepicker-toggle matSuffix [for]="minPicker"></mat-datepicker-toggle>
           <mat-datepicker #minPicker></mat-datepicker>
         </mat-form-field>  
-      </div>
 
       <mat-form-field>
         <mat-label>Question Difficulty</mat-label>
@@ -48,12 +46,7 @@
 
       <form class="example-form">
         <mat-form-field class="example-full-width">
-          <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="category">
-              {{category.id}}
-            </mat-option>
-          </mat-autocomplete>
+          <input type="text" placeholder="Category..." aria-label="Number" matInput [formControl]="myControl"  [(ngModel)]="category">
         </mat-form-field>
       </form>
 
