@@ -4,7 +4,7 @@ const getHost = () => {
   const host = window.location.host;
   return `${protocol}//${host}`;
 };
-const apiURI = 'http://ariagno.localtunnel.me/api/';
+const apiURI = 'http://157.245.219.215:3000/api/';
 
 export const ENV = {
   BASE_URI: getHost(),
