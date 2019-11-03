@@ -1,27 +1,21 @@
-body {
-  padding-top: 55px;
-  background-color: #0100a0 !important;
-}
+@import '../../../assets/scss/partials/layout.vars';
+@import '../../../assets/scss/partials/responsive.partial';
 
 .board {
   width: 100%;
   margin: auto;
-  background-color: #0100a0 !important;
 }
-
 ul.categories {
   list-style-type: none;
   margin: 10px;
   padding: 0;
-  border-style: solid;
-  border-width: 5px;
 }
 
 ul.categories>li {
   float: left;
   text-align: center;
   margin: 20px;
-  height: 130px;
+  height: 110px;
 }
 
 ul.category {
@@ -33,26 +27,30 @@ ul.category>li {
   height: 80px;
   text-align: center;
 }
-
+.category {
+  width:200px;
+}
 .category-name {
-  font-weight: 500;
-  font-size: 30px;
+  font-weight: 400;
+  font-size: 1.3em;
   color: black;
   max-width: 280px;
   display: block;
-  height: 130px;
+  height: 90px;
 }
 
 
 .question-value {
-  font-weight: 500;
-  font-size: 30px;
+  font-weight: 400;
+  font-size: 1.3em;
   color: black;
   text-align: center;
   cursor: pointer;
 }
 
-
+.question-value {
+  border:1px;
+}
 .search-footer {
   width: 100%;
   height: 60px;
@@ -71,12 +69,12 @@ ul.category>li {
 
 .question {
   color: black;
-  font-size: 60px;
+  font-size: 40px;
 }
 
 .answer {
-  color: white;
-  font-size: 20px;
+  color: black;
+  font-size: 30px;
 }
 
 .update {

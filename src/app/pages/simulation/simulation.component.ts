@@ -20,7 +20,7 @@ export class SimulationComponent implements OnInit {
   currentQuestion: Question;
   showNumberField: number;
   roundField: string;
-
+  revealAnswer: boolean;
   constructor(
     private gameService: GameService,
     private cd: ChangeDetectorRef
@@ -31,6 +31,7 @@ export class SimulationComponent implements OnInit {
     this.roundField = 'Jeopardy!';
     this.getBoard();
     this.clearCurrentQuestion();
+    this.revealAnswer = false;
   }
 
   getBoard(): void {
@@ -49,10 +50,13 @@ export class SimulationComponent implements OnInit {
 
   clearCurrentQuestion() {
     this.currentQuestion = undefined;
+    this.revealAnswer = false;
   }
 
   updateShow() {
     this.getBoard();
   }
-
+  showerAnswer() {
+    this.revealAnswer = true;
+  }
 }

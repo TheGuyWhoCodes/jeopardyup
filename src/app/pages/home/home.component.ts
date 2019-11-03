@@ -22,13 +22,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   myControl = new FormControl();
   categories$ = this.api.getCategories$()
   filteredOptions: Observable<string[]>;
-
-
-
   pageTitle = 'Jeopardy Search';
   eventListSub: Subscription;
+  categoryListSub: Subscription;
   eventList: EventModel[];
   filteredEvents: EventModel[];
+  categories: CategoryModel[];
+  categoryID: number[];
+  categorySearch: string;
   loading: boolean;
   error: boolean;
   minDate: Date;
@@ -59,21 +60,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.title.setTitle(this.pageTitle);
     this._getEventList();
+    this._getCategories();
     this.minDate = undefined;
     this.maxDate = undefined;
   }
 
-   _getEventList(question?: string, diff?: string, category?: string) {
+  _getEventList(question?: string, diff?: string, category?: number[]) {
     this.loading = true;
     // Get future, public events
-    console.log(category)
     this.eventListSub = this.api
-      .getEvents$(question, this.minDate, this.maxDate, diff, category)
+      .getEvents$(question, this.minDate, this.maxDate, diff,category)
       .subscribe(
         res => {
           this.eventList = res;
           this.filteredEvents = res;
           this.loading = false;
+          this.categoryID = [];
         },
         err => {
           console.error(err);
@@ -81,6 +83,35 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.error = true;
         }
       );
+  }
+  async _search(question?: string, diff?: string) {
+    this._getEventList(question, diff, await this.getCategoryID())
+  }
+  getCategoryID() : number[]{
+    for(let i = 0; i < this.categories.length; i++) {
+      if(this.categories[i].title.includes(this.categorySearch)) {
+        this.categoryID.push(this.categories[i].id);
+      }
+    }
+    return this.categoryID
+  }
+  updateCategorySearch(event) {
+    this.categorySearch = event;
+  }
+  _getCategories() {
+    this.categoryListSub = this.api
+    .getCategories$()
+    .subscribe(
+      res => {
+        this.categories = res;
+        this.loading = false;
+      },
+      err => {
+        console.error(err);
+        this.loading = false;
+        this.error = true;
+      }
+    )
   }
   searchEvents() {
     this.filteredEvents = this.fs.search(this.eventList, this.query, 'question', 'mediumDate');
@@ -104,7 +135,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   updateMaximum(event){
     this.maxDate = (event.value.toISOString())
-    console.log(this.maxDate)
   }
   getOptionText(option) {
     return option.title;

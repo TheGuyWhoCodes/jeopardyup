@@ -16,7 +16,7 @@ export class ApiService {
   ) { }
 
   // GET list of public, future events
-  getEvents$(question?: string, min?: Date, max?: Date, diff?: String, category?: string): Observable<EventModel[]> {
+  getEvents$(question?: string, min?: Date, max?: Date, diff?: String, category?: number[]): Observable<EventModel[]> {
     var url = `${ENV.BASE_API}clues?`;
     if(question != undefined) {
       url += "keyword="+question + "&";
@@ -32,8 +32,9 @@ export class ApiService {
       url += "value="+diff + "&";
     }
     if(category != undefined) {
-      url += "category_keyword="+category + "&";
+      url += "category=["+ category + "]&";
     }
+    console.log(url);
     return this.http
       .get<EventModel[]>(url)
       .pipe(

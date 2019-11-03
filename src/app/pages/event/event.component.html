@@ -1,3 +1,7 @@
+<div class = "wrapper" style="
+max-width: 960px;
+margin: auto;
+">
 <app-loading *ngIf="loading"></app-loading>
 <ng-template [ngIf]="utils.isLoaded(loading)">
   <h1 class="text-center">{{ pageTitle }}</h1>
@@ -28,3 +32,4 @@
     <strong>Oopsie Woopsie OoowWoooooo!</strong> There was an error retrieving information for this event.
   </p>
 </ng-template>
+</div>
