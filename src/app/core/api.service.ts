@@ -31,7 +31,7 @@ export class ApiService {
     if(diff != undefined) {
       url += "value="+diff + "&";
     }
-    if(category != undefined) {
+    if(category != [] && category != undefined) {
       url += "category=["+ category + "]&";
     }
     console.log(url);
