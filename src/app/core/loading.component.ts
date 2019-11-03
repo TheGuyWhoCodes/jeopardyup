@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-loading',
   template: `
-    <img src="/assets/loading.svg">
+    <img src="http://ariagno.com/jeopardyup/assets/loading.svg">
   `,
   styles: [`
     :host {
