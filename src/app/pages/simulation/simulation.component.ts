@@ -38,10 +38,10 @@ export class SimulationComponent implements OnInit {
     this.gameService
     .getGame(this.showNumberField, this.roundField)
     .then(boardV => {
+      this.formatAnswer(boardV);
       this.board = boardV;
       // Update UI
       this.cd.detectChanges();
-      console.log(this.board);
     });  }
 
   setCurrentQuestion(question: Question){
@@ -52,9 +52,14 @@ export class SimulationComponent implements OnInit {
     this.currentQuestion = undefined;
     this.revealAnswer = false;
   }
-
-  updateShow() {
-    this.getBoard();
+  formatAnswer(boardV) {
+    for(let i = 0; i < 5; i++){
+      for(let j = 0; j < 5; j++) {
+        boardV[i].clues[j].value = ''+((200 * (i)) + 200);
+      }
+      boardV[i].clues = boardV[i].clues.slice(0,5)
+    }
+    this.board = boardV;
   }
   showerAnswer() {
     this.revealAnswer = true;

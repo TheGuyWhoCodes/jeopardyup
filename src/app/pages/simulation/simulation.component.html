@@ -1,29 +1,39 @@
 <div class = "wrapper">
     <div class="search-footer">
-        <span class="btn btn-large btn-info update" (click)="updateShow()">Update Show</span>
+        <span class="btn btn-large btn-info update" (click)="getBoard()">Update Show</span>
       </div>
     
-    <div class="board" *ngIf="!currentQuestion">
-        <ul class="categories" *ngIf="board">
-          <li *ngFor="let category of board">
-            <span class="category-name" [innerHTML]="category.title">
-            
-            </span>
-            <ul class="category">
-              <li *ngFor="let question of category.clues; let i=index" (click)="setCurrentQuestion(question)">
-                <div *ngIf="i<5">
-                  <span class="question-value" *ngIf="question.value">
-                    ${{question.value}}
-                  </span>
-                  <span class="question-value" *ngIf="!question.value">
-                      $100
-                  </span>
-                </div>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+    <!-- <table >
+    
+      <thead>
+        <th *ngFor="let category of board">
+        </th>
+      </thead>
+
+        <tr *ngFor="let category of board">
+          <div *ngFor="let question of category.clues; let i=index" (click)="setCurrentQuestion(question)">
+            <td>
+              ppop
+            </td>
+          </div>
+        </tr>
+
+    </table> -->
+
+    <table class="table" *ngIf="!currentQuestion">
+        <tr>
+          <th *ngFor="let category of board">
+              {{category.title}}
+            </th>
+        </tr>
+        <tr *ngFor="let category of board">
+          <td *ngFor="let question of category.clues; let i=index">
+            <a *ngIf="i<5" (click)="setCurrentQuestion(question)">
+              ${{question.value}}
+            </a>
+          </td>
+        </tr>
+      </table>
       <div class="question-display" *ngIf="currentQuestion">
        <span class="question" [innerHTML]="">
           Question: {{currentQuestion.question}}
