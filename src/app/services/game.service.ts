@@ -8,7 +8,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 })
 export class GameService {
 
-  private gamesUrl = 'http://ariagno.localtunnel.me/api/rando_clues'
+  private gamesUrl = 'http://157.245.219.215:3000/api/rando_clues'
 
   constructor(private http: HttpClient) { }
 
