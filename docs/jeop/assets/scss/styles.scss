@@ -1,0 +1,10 @@
+/* src/assets/scss/styles.scss */
+// partials
+@import 'partials/layout.vars';
+@import 'partials/responsive.partial';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+// global styles
+@import 'base';
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

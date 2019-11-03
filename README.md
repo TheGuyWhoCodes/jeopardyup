@@ -1,27 +1,31 @@
 # Jeop
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.2.
+This project was built for the Capital One Engineering Challenge. The given challenge was to create a site where you can browse the large collection of Jeoprady questions and filter out for certain criteria. An extra feature that I added was the simulation portion of the game. The service is built off of ruby and a MEAP stack.
 
-## Development server
+I think this application is worthy of winning for a couple of reasons:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. Application setup is very clean with not only the use of Angular, but the project setup in general
+2. The API Controller for Ruby is heavily modified in order to take off client side filtering
+3. Mobile friendly search with easy client side searching
 
-## Code scaffolding
+The repository is split into two sections, the Angular server and Ruby API search.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This site *CANNOT* be used with the current jService.io service, we will need to install the modified version in order to run. The differences are:
 
-## Build
+1. Fixed min_date max_date 
+2. keyword searching
+3. Jeoprady simulation API call
+4. Fixes to rails versions in order to run in 2019 instead of 2015 :(
+# Angular Setup
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+To install and run the application, we need to run:
+`$ npm install`
+to install any dependencies for the application. Then we can run an 
+`$ ng serve` to run the application.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+# Ruby Application Setup
+* run `bundle install` 
+* run `rails s`
+* Either import the db (included) or run `rake get_clues[1,31]` -- NOTE: this will grab approx 130K clues and takes a while. The arguments here are the range of season you want to grab. You can save some time and grab only current season by doing something like `rake get_clues[20,31]`, which would only get seasons 20 through 31
+* visit `http://localhost:3000/clues` or view `config\routes.rb` file for more
+* shoot me a pull request to the readme with your app in the wild!
